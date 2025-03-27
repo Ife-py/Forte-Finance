@@ -1,7 +1,7 @@
 # Forte Finance
 
 <p align="center">
-    <img src="https://via.placeholder.com/400x150?text=Forte+Finance+Logo" alt="Forte Finance Logo" width="400">
+    <img src="{{ asset('LogoFF.png') }}" alt="Forte Finance Logo" width="400">
 </p>
 
 <p align="center">
