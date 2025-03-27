@@ -41,12 +41,12 @@
         <div class="container mt-4">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="https://source.unsplash.com/100x100/?person,man" alt="Client 1" class="testimonial-img">
+                    <img src="{{ asset('images/user4.jpg') }}" alt="Client 1" class="testimonial-img">
                     <p>"CryptoEdge transformed the way I invest in cryptocurrency!"</p>
                     <small>- John Doe</small>
                 </div>
                 <div class="col-md-6">
-                    <img src="https://source.unsplash.com/100x100/?person,woman" alt="Client 2" class="testimonial-img">
+                    <img src="{{ asset('images/user1.jpg') }}" alt="Client 2" class="testimonial-img">
                     <p>"Their blockchain solutions helped scale our business securely."</p>
                     <small>- Sarah Lee</small>
                 </div>
