@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
-use App\Http\Controllers\Dashoard\DashboardController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\AdminAuthController;
 
 Route::get('/home', function () {
     return view('test');
@@ -22,7 +23,11 @@ Route::controller(RegisterController::class)->prefix('register')->group(function
     Route::post('/store','store')->name('store');
 });
 
-Route::controller(DashboardController::class)->prefix('dashboard')->group(function(){
+Route::controller(DashboardController::class)->prefix('da\shboard')->group(function(){
     Route::get('/','index')->name('dashboard');
+});
+
+Route::controller(AdminAuthController::class)->prefix('dashboard')->group(function(){
+    Route::post('/logout','logout')->name('logout');
 });
 Route::get('users/{id}', [UserController::class, 'index'])->name('user.index');
