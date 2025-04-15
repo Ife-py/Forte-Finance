@@ -4,7 +4,7 @@
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="card p-4 shadow-lg" style="width: 100%; max-width: 400px;">
             <h2 class="mb-4 text-center">Create an account</h2>
-            {{-- @if (session('status'))
+            @if (session('status'))
                     <p class="alert alert-success">{{ session('status') }}</p>
                 @endif
                 @if (session('error'))
@@ -12,8 +12,8 @@
                 @endif
                 @if (session('success'))
                     <p class="alert alert-success">{{ session('success') }}</p>
-                @endif --}}
-            <form action="#" method="POST">
+                @endif
+            <form action="{{ route('store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
