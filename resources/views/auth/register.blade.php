@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="card p-4 shadow-lg" style="width: 100%; max-width: 400px;">
-            <h2 class="mb-4 text-center">Login</h2>
+            <h2 class="mb-4 text-center">Create an account</h2>
             {{-- @if (session('status'))
                     <p class="alert alert-success">{{ session('status') }}</p>
                 @endif
@@ -55,7 +55,6 @@
 
             <!-- Links -->
             <div class="mt-3 text-center">
-                <a href="#" class="text-success">Forgot your password?</a><br>
                 <a href="{{ route('login') }}" class="text-success">Login</a>
             </div>
         </div>

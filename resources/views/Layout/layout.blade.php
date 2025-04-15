@@ -150,6 +150,34 @@
         .social-icons a:hover {
             color: #d4edda;
         }
+
+        .hover-popup {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            /* Default light background */
+        }
+
+        .hover-popup:hover {
+            transform: scale(1.05);
+            /* Slightly enlarge the section */
+            background-color: #79ebb6;
+            /* Theme color on hover */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .hover-popup1 {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            /* Default light background */
+        }
+
+        .hover-popup1:hover {
+            transform: scale(1.05);
+            /* Slightly enlarge the section */
+            /* Theme color on hover */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 
@@ -170,15 +198,18 @@
                         <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{ route('index') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('login') ? 'active' : '' }}" href="{{ route('login') }}">Login</a>
+                        <a class="nav-link {{ Request::is('login') ? 'active' : '' }}"
+                            href="{{ route('login') }}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('about-us') ? 'active' : '' }}" href="{{ route('about-us') }}">About Us</a>
+                        <a class="nav-link {{ Request::is('about-us') ? 'active' : '' }}"
+                            href="{{ route('about-us') }}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('contact-us') ? 'active' : '' }}" href="{{ route('contact-us') }}">Contact Us</a>
+                        <a class="nav-link {{ Request::is('contact-us') ? 'active' : '' }}"
+                            href="{{ route('contact-us') }}">Contact Us</a>
                     </li>
-                    
+
                 </ul>
             </div>
         </div>

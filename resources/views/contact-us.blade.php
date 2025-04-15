@@ -7,8 +7,8 @@
 
         <div class="row">
             <!-- Contact Form -->
-            <div class="col-md-6">
-                <form action="" method="POST" class="p-4 shadow-lg rounded">
+            <div class="col-md-6 ">
+                <form action="" method="POST" class="p-4 shadow-lg rounded hover-popup1">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label text-success">Your Name</label>
@@ -28,7 +28,7 @@
 
             <!-- Contact Details -->
             <div class="col-md-6">
-                <div class="p-4 shadow rounded">
+                <div class="p-4 shadow rounded hover-popup1">
                     <h4 class="text-success">Get in Touch</h4>
                     <p class="mb-2"><i class="uil uil-envelope text-success"></i> Email: support@fortefinance.com</p>
                     <p class="mb-2"><i class="uil uil-phone text-success"></i> Phone: +123 456 7890</p>
