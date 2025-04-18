@@ -6,7 +6,7 @@
         <!-- Dashboard Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div class="d-flex align-items-center">
-                <img src="{{ asset('LogoFF.png') }}" alt="Logo" width="50" height="50" class="me-3">
+                <img src="{{ asset('LogoFF.png') }}" alt="Logo" width="80" height="80" >
                 <h1 class="text-success fw-bold mb-0">Welcome, {{ $user->name }}!</h1>
             </div>
             <div>
@@ -35,7 +35,7 @@
                     <i class="uil uil-book-open text-success" style="font-size: 3rem;"></i>
                     <h5 class="text-success mt-3">Courses Available</h5>
                     <h2 class="fw-bold">56</h2>
-                    <p class="text-muted">Courses currently offered</p>
+                    <p class="text-muted">Courses currently available for this Phase</p>
                 </div>
             </div>
             <div class="col-md-3">

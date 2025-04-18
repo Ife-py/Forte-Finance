@@ -5,6 +5,8 @@ use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\AdminAuthController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 Route::get('/home', function () {
     return view('test');
@@ -23,9 +25,25 @@ Route::controller(RegisterController::class)->prefix('register')->group(function
     Route::post('/store','store')->name('store');
 });
 
-Route::controller(DashboardController::class)->prefix('da\shboard')->group(function(){
+Route::get('/email/verify', function () {
+    return view('auth.verify-email'); // Create this view
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill(); // Marks email as verified
+
+    return redirect('/dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::controller(DashboardController::class)->prefix('dashboard')->group(function(){
     Route::get('/','index')->name('dashboard');
-});
+})->middleware(['auth', 'verified']);
 
 Route::controller(AdminAuthController::class)->prefix('dashboard')->group(function(){
     Route::post('/logout','logout')->name('logout');

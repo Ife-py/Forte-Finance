@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class LoginController extends Controller
 {
     public function login(){
@@ -24,7 +25,7 @@ class LoginController extends Controller
             return redirect()->back()->with('error', 'User not found');
         }
         if(!Auth::attempt(['name' => $request->username, 'password' => $request->password])){
-            return redirect()->route('index')->with('error', 'Invalid credentials');
+            return redirect()->back()->with('error', 'Invalid Password');
         }
         return redirect()
         ->route('dashboard') ->with('success', 'Login successful');

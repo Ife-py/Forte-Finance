@@ -5,6 +5,8 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -19,12 +21,16 @@ class RegisterController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        User::create([
+        $user= User::create([
             'name' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->back()->with('success', 'Registration successful!');
+        event(new Registered($user)); // <-- Sends the email
+
+        Auth::login($user);
+    
+        return redirect('/email/verify');
     }
 }
