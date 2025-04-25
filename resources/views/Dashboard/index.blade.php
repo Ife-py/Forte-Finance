@@ -78,9 +78,9 @@
                 <div class="card shadow-lg p-4 hover-popup border-0" style="background: #ffffff;">
                     <h5 class="text-success fw-bold"><i class="uil uil-link"></i> Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-success"><i class="uil uil-user-circle"></i> Manage Students</a>
+                        <li><a href="{{ route('students') }}" class="text-success"><i class="uil uil-user-circle"></i> Manage Students</a>
                         </li>
-                        <li><a href="#" class="text-success"><i class="uil uil-book"></i> View Courses</a></li>
+                        <li><a href="{{ route('courses') }}" class="text-success"><i class="uil uil-book"></i> View Courses</a></li>
                         <li><a href="#" class="text-success"><i class="uil uil-file-alt"></i> Assignments</a></li>
                         <li><a href="#" class="text-success"><i class="uil uil-award"></i> Certificates</a></li>
                     </ul>

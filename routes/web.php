@@ -43,6 +43,8 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::controller(DashboardController::class)->prefix('dashboard')->group(function(){
     Route::get('/','index')->name('dashboard');
+    Route::get('/students','students')->name('students');
+    Route::get('/courses','courses')->name('courses');
 })->middleware(['auth', 'verified']);
 
 Route::controller(AdminAuthController::class)->prefix('dashboard')->group(function(){

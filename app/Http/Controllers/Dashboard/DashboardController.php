@@ -13,4 +13,11 @@ class DashboardController extends Controller
         $user = User::find(Auth::user()->id);
         return view("Dashboard.index", compact('user'));
     }
+    public function students(){
+        return view("Dashboard.students");
+    }
+
+    public function courses(){
+        return view("Dashboard.courses");
+    }
 }
