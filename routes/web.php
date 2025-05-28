@@ -5,6 +5,7 @@ use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\AdminAuthController;
+use App\Http\Controllers\admin\AdminController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -47,7 +48,16 @@ Route::controller(DashboardController::class)->prefix('dashboard')->group(functi
     Route::get('/courses','courses')->name('courses');
 })->middleware(['auth', 'verified']);
 
+Route::controller(AdminController::class)->prefix('admin')->group(function(){
+    Route::get('/','index')->name('admin.index');
+    Route::get('/courses','courses')->name('admin.courses');
+    Route::get('/students','students')->name('admin.students');
+    
+});
+
 Route::controller(AdminAuthController::class)->prefix('dashboard')->group(function(){
     Route::post('/logout','logout')->name('logout');
 });
+
+
 Route::get('users/{id}', [UserController::class, 'index'])->name('user.index');

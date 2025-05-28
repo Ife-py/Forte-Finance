@@ -1,24 +1,30 @@
 @extends('Layout.dashboard')
 
 @section('content')
-    <div class="container-fluid py-4">
+    <div class="py-4">
         <!-- Dashboard Header -->
-        <!-- Dashboard Header -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div class="d-flex align-items-center">
-                <img src="{{ asset('LogoFF.png') }}" alt="Logo" width="80" height="80" >
-                <h1 class="text-success fw-bold mb-0">Welcome, {{ $user->name }}!</h1>
-            </div>
-            <div>
-                <a href="#" class="btn btn-success btn-lg shadow-sm me-2"><i class="uil uil-plus-circle"></i> Add New
-                    Course</a>
-                <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                    @csrf
-                    <button type="submit" class="btn btn-danger btn-lg shadow-sm"><i class="uil uil-signout"></i>
-                        Logout</button>
-                </form>
+        <div class="container-fluid py-3 px-4 bg-white rounded shadow-sm mb-4">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md-6 d-flex align-items-center gap-3">
+                    <img src="{{ asset('LogoFF.png') }}" alt="Logo" width="60" height="60"
+                        class="rounded-circle border shadow-sm">
+                    <h2 class="text-success fw-bold mb-0">Welcome, {{ $user->name }}!</h2>
+                </div>
+
+                <div class="col-md-6 d-flex justify-content-md-end gap-3 mt-3 mt-md-0">
+                    <a href="#" class="btn btn-success btn-lg px-4 shadow">
+                        <i class="uil uil-plus-circle me-2"></i> Add New Course
+                    </a>
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-lg px-4 shadow">
+                            <i class="uil uil-signout me-2"></i> Logout
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
+
 
         <!-- Dashboard Metrics -->
         <div class="row mb-4">
@@ -56,33 +62,46 @@
             </div>
         </div>
 
-        <!-- Recent Activities -->
+        <!-- Recent Activities & Quick Links -->
         <div class="row mb-4">
-            <div class="col-md-8">
-                <div class="card shadow-lg p-4 hover-popup border-0" style="background: #ffffff;">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <div class="card shadow-lg p-4 hover-popup border-0 h-100" style="background: #ffffff;">
                     <h5 class="text-success fw-bold"><i class="uil uil-history"></i> Recent Activities</h5>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Student <strong>John Doe</strong> enrolled in <strong>"Blockchain
                                 Basics"</strong>.</li>
                         <li class="list-group-item">New course <strong>"Advanced Crypto Trading"</strong> was added.</li>
                         <li class="list-group-item">Assignment <strong>"Smart Contracts 101"</strong> was submitted by
-                            <strong>Jane Smith</strong>.
-                        </li>
+                            <strong>Jane Smith</strong>.</li>
                         <li class="list-group-item">Certificate issued to <strong>Michael Brown</strong> for completing
-                            <strong>"Crypto Security"</strong>.
-                        </li>
+                            <strong>"Crypto Security"</strong>.</li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card shadow-lg p-4 hover-popup border-0" style="background: #ffffff;">
-                    <h5 class="text-success fw-bold"><i class="uil uil-link"></i> Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="{{ route('students') }}" class="text-success"><i class="uil uil-user-circle"></i> Manage Students</a>
+            <div class="col-lg-4">
+                <div class="card shadow-lg p-4 hover-popup border-0 h-100" style="background: #ffffff;">
+                    <h5 class="text-success fw-bold mb-3"><i class="uil uil-books"></i> Course Materials</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <a href="#" class="text-success text-decoration-none">
+                                <i class="uil uil-file-alt"></i> Introduction to Blockchain (PDF)
+                            </a>
                         </li>
-                        <li><a href="{{ route('courses') }}" class="text-success"><i class="uil uil-book"></i> View Courses</a></li>
-                        <li><a href="#" class="text-success"><i class="uil uil-file-alt"></i> Assignments</a></li>
-                        <li><a href="#" class="text-success"><i class="uil uil-award"></i> Certificates</a></li>
+                        <li class="mb-2">
+                            <a href="#" class="text-success text-decoration-none">
+                                <i class="uil uil-play-circle"></i> Crypto Security Video Series
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-success text-decoration-none">
+                                <i class="uil uil-presentation-play"></i> Smart Contracts Slide Deck
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-success text-decoration-none">
+                                <i class="uil uil-link"></i> Recommended Articles & Blogs
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -90,7 +109,7 @@
 
         <!-- Upcoming Events -->
         <div class="row mb-4">
-            <div class="col-md-12">
+            <div class="col-12">
                 <div class="card shadow-lg p-4 hover-popup border-0" style="background: #f8f9fa;">
                     <h5 class="text-success fw-bold"><i class="uil uil-calendar-alt"></i> Upcoming Events</h5>
                     <ul class="list-group list-group-flush">
@@ -107,7 +126,7 @@
 
         <!-- Top Performing Students -->
         <div class="row mb-4">
-            <div class="col-md-12">
+            <div class="col-12">
                 <div class="card shadow-lg p-4 hover-popup border-0" style="background: #ffffff;">
                     <h5 class="text-success fw-bold"><i class="uil uil-trophy"></i> Top Performing Students</h5>
                     <ul class="list-group list-group-flush">
@@ -124,7 +143,7 @@
 
         <!-- Announcements -->
         <div class="row mb-4">
-            <div class="col-md-12">
+            <div class="col-12">
                 <div class="card shadow-lg p-4 hover-popup border-0" style="background: #f8f9fa;">
                     <h5 class="text-success fw-bold"><i class="uil uil-bullhorn"></i> Announcements</h5>
                     <ul class="list-group list-group-flush">

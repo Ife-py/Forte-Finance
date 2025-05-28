@@ -114,7 +114,7 @@
                                 <div class="collapse" id="studentsCollapse">
                                     <ul class="nav flex-column ms-3">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">Add Student</a>
+                                            <a class="nav-link" href="{{ route('students') }}">All Students</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -129,9 +129,6 @@
                                     <ul class="nav flex-column ms-3">
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('courses') }}">All Courses</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Add Course</a>
                                         </li>
                                     </ul>
                                 </div>
