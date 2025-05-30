@@ -101,7 +101,7 @@
                     <div class="collapse d-lg-block" id="sidebarLinks">
                         <ul class="nav flex-column px-2">
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('dashboard') }}">
+                                <a class="nav-link active" href="{{ route('admin.index') }}">
                                     <i class="uil uil-apps"></i> Dashboard
                                 </a>
                             </li>
@@ -114,7 +114,7 @@
                                 <div class="collapse" id="studentsCollapse">
                                     <ul class="nav flex-column ms-3">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('students') }}">All Students</a>
+                                            <a class="nav-link" href="{{ route('admin.students.index') }}">All Students</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -128,7 +128,7 @@
                                 <div class="collapse" id="coursesCollapse">
                                     <ul class="nav flex-column ms-3">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('courses') }}">All Courses</a>
+                                            <a class="nav-link" href="{{ route('admin.courses.index') }}">All Courses</a>
                                         </li>
                                     </ul>
                                 </div>

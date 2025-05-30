@@ -6,6 +6,8 @@ use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\AdminAuthController;
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\AdminStudentsController;
+use App\Http\Controllers\admin\AdminCoursesController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -50,9 +52,23 @@ Route::controller(DashboardController::class)->prefix('dashboard')->group(functi
 
 Route::controller(AdminController::class)->prefix('admin')->group(function(){
     Route::get('/','index')->name('admin.index');
-    Route::get('/courses','courses')->name('admin.courses');
-    Route::get('/students','students')->name('admin.students');
-    
+   });
+
+Route::controller(AdminStudentsController::class)->prefix('admin/students')->group(function(){
+    Route::get('/','index')->name('admin.students.index');
+    Route::get('/show/{id}','show')->name('admin.students.show');
+    Route::get('/{id}/edit','edit')->name('admin.students.edit');
+    Route::put('/{id}/update','update')->name('admin.students.update');
+    Route::delete('/{id}/destroy','destroy')->name('admin.students.destroy');
+});
+
+Route::controller(AdminCoursesController::class)->prefix('admin/courses')->group(function(){
+    Route::get('/','index')->name('admin.courses.index');
+    Route::get('/create','create')->name('admin.courses.create');
+    Route::post('/store','store')->name('admin.courses.store');
+    Route::get('/{id}/edit','edit')->name('admin.courses.edit');
+    Route::put('/{id}/update','update')->name('admin.courses.update');
+    Route::delete('/{id}/destroy','destroy')->name('admin.courses.destroy');
 });
 
 Route::controller(AdminAuthController::class)->prefix('dashboard')->group(function(){
