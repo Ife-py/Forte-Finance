@@ -114,7 +114,8 @@
                                 <div class="collapse" id="studentsCollapse">
                                     <ul class="nav flex-column ms-3">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('admin.students.index') }}">All Students</a>
+                                            <a class="nav-link" href="{{ route('admin.students.index') }}">All
+                                                Students</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -128,7 +129,8 @@
                                 <div class="collapse" id="coursesCollapse">
                                     <ul class="nav flex-column ms-3">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('admin.courses.index') }}">All Courses</a>
+                                            <a class="nav-link" href="{{ route('admin.courses.index') }}">All
+                                                Courses</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -149,10 +151,14 @@
 
                     <!-- Logout at bottom -->
                     <div class="mt-auto p-3">
-                        <a class="nav-link" href="#logout">
-                            <i class="uil uil-signout"></i> Logout
-                        </a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="nav-link btn btn-link p-0 text-decoration-none">
+                                <i class="uil uil-signout"></i> Logout
+                            </button>
+                        </form>
                     </div>
+
                 </div>
             </nav>
 

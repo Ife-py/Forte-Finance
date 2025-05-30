@@ -152,9 +152,12 @@
 
                     <!-- Logout at bottom -->
                     <div class="mt-auto p-3">
-                        <a class="nav-link" href="#logout">
-                            <i class="uil uil-signout"></i> Logout
-                        </a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="nav-link btn btn-link p-0 text-decoration-none">
+                                <i class="uil uil-signout"></i> Logout
+                            </button>
+                        </form>
                     </div>
                 </div>
             </nav>
