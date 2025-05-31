@@ -67,5 +67,32 @@ class AdminStudentsController extends Controller
         // Redirect back with a success message
         return redirect()->route('admin.students.index')->with('success', 'Student deleted successfully.');
     }
+    
+    public function search(Request $request)
+    {
+        $query = $request->input('search');
+        $students = collect();  // Start with empty collection
+        $message = null;
+
+        if (!empty($query)) {
+            $students = User::where(function ($q) use ($query) {
+                $q->where('name', 'like', '%' . $query . '%')
+                ->orWhere('email', 'like', '%' . $query . '%');
+            })->get();
+
+            if ($students->isEmpty()) {
+                $message = 'No students found matching your search.';
+            }
+        } else {
+            $message = 'Please enter a search term to find students.';
+        }
+
+        return view('admin.students.index', [
+            'students' => $students,
+            'searchQuery' => $query,
+            'message' => $message,
+        ]);
+    }
+
 
 }

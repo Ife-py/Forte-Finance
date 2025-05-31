@@ -60,6 +60,7 @@ Route::controller(AdminStudentsController::class)->prefix('admin/students')->gro
     Route::get('/{id}/edit','edit')->name('admin.students.edit');
     Route::put('/{id}/update','update')->name('admin.students.update');
     Route::delete('/{id}/destroy','destroy')->name('admin.students.destroy');
+    Route::get('/search','search')->name('admin.students.search');
 });
 
 Route::controller(AdminCoursesController::class)->prefix('admin/courses')->group(function(){
