@@ -44,11 +44,13 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::controller(DashboardController::class)->prefix('dashboard')->group(function(){
+Route::middleware('auth','verified')->group(function(){
+    Route::controller(DashboardController::class)->prefix('dashboard')->group(function(){
     Route::get('/','index')->name('dashboard');
     Route::get('/students','students')->name('students');
     Route::get('/courses','courses')->name('courses');
-})->middleware(['auth', 'verified']);
+    });
+});
 
 Route::controller(AdminController::class)->prefix('admin')->group(function(){
     Route::get('/','index')->name('admin.index');
