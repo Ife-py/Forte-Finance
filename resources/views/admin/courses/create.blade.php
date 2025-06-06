@@ -72,10 +72,11 @@
                                     </option>
                                     <option value="Sigma" {{ old('level') == 'Sigma' ? 'selected' : '' }}>Sigma
                                     </option>
-                                    <option value="Delta" {{ old('level') == 'Delta' ? 'selected' : '' }}>Delta
+                                    <option value="Beta" {{ old('level') == 'Beta' ? 'selected' : '' }}>Beta
                                     </option>
-                                    <option value="Beta" {{ old(';evel') == 'Beta' ? 'selected' : '' }}>Beta
+                                    <option value="Alpha" {{ old('level') == 'Alpha' ? 'selected' : '' }}>Alpha
                                     </option>
+                                    
                                 </select>
                                 @error('level')
                                     <div class="text-danger small">{{ $message }}</div>

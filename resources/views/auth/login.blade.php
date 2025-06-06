@@ -1,8 +1,7 @@
 @extends('Layout.layout')
 
 @section('content')
-    <div class="container d-flex justify-content-center align-items-center"
-        style="height: 100vh; background: rgb(198, 248, 198);">
+    <div class="container d-flex justify-content-center align-items-center"style="height: 100vh; background: rgb(198, 248, 198);">
         <div class="row w-100 h-100">
             <!-- Left Side: Image -->
             <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center">

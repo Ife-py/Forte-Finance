@@ -10,7 +10,8 @@ class AdminCoursesController extends Controller
 {
     public function index()
     {
-        return view('admin.courses.index');
+        $courses= courses::all();
+        return view('admin.courses.index',compact("courses"));
     }
 
     public function create()
@@ -23,7 +24,7 @@ class AdminCoursesController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'category' => 'nullable|string|max:255',
-            'level' => 'nullable|string|in:Omega,sigma,beta,alpha',
+            'level' => 'nullable|string|in:Omega,Sigma,beta,alpha',
             'duration' => 'nullable|integer|min:1', // Duration in minutes
             'instructor' => 'nullable|string|max:255',
             'start_date' => 'nullable|date',

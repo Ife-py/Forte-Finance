@@ -34,22 +34,75 @@
         </div>
     </div>
 
-    {{-- <!-- Courses Grid -->
+    <!-- Courses Grid -->
     <div class="row">
         @forelse ($courses as $course)
             <div class="col-md-4 mb-4">
-                <div class="card shadow-lg border-0 h-100">
+                <div class="card shadow-lg border-0 h-100 hover-popup">
                     <div class="card-body d-flex flex-column">
+    
+                        <!-- Course Image -->
+                        @if ($course->image_path)
+                            <div class="mb-3 text-center">
+                                <img src="{{ asset('storage/' . $course->image_path) }}" alt="Course Image" class="img-fluid rounded" style="max-height: 180px; object-fit: cover;">
+                            </div>
+                        @endif
+    
+                        <!-- Course Title -->
                         <h5 class="fw-bold text-success">{{ $course->name }}</h5>
-                        <p class="mb-1 text-muted"><i class="uil uil-user"></i> Instructor: {{ $course->instructor ?? 'N/A' }}</p>
-                        <p class="mb-2 text-muted"><i class="uil uil-users-alt"></i> Enrolled: {{ $course->students_count ?? 0 }}</p>
-                        <div class="mt-auto">
-                            <a href="{{ route('admin.courses.show', $course->id) }}" class="btn btn-info btn-sm me-1"><i class="uil uil-eye"></i> View</a>
-                            <a href="{{ route('admin.courses.edit', $course->id) }}" class="btn btn-warning btn-sm me-1"><i class="uil uil-edit"></i> Edit</a>
-                            <form action="{{ route('admin.courses.destroy', $course->id) }}" method="POST" class="d-inline">
+    
+                        <!-- Instructor and Enrollments -->
+                        <p class="mb-1 text-muted">
+                            <i class="uil uil-user"></i> 
+                            Instructor: <span class="fw-semibold">{{ $course->instructor ?? 'N/A' }}</span>
+                        </p>
+                        <p class="mb-1 text-muted">
+                            <i class="uil uil-users-alt"></i> 
+                            Enrolled: <span class="fw-semibold">{{ $course->students_count ?? 0 }}</span>
+                        </p>
+    
+                        <!-- Course Description -->
+                        @if ($course->description)
+                            <p class="text-muted small mt-2">
+                                <i class="uil uil-file-alt"></i> 
+                                {{ Str::words($course->description, 20) }}
+                            </p>
+                        @endif
+    
+                        <!-- Audio -->
+                        @if ($course->audio_path)
+                            <div class="mb-2">
+                                <audio controls class="w-100">
+                                    <source src="{{ asset('storage/' . $course->audio_path) }}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </div>
+                        @endif
+    
+                        <!-- Video -->
+                        @if ($course->video_path)
+                            <div class="mb-2">
+                                <video width="100%" height="200" controls class="rounded">
+                                    <source src="{{ asset('storage/' . $course->video_path) }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        @endif
+    
+                        <!-- Actions -->
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="#" class="btn btn-info btn-sm">
+                                <i class="uil uil-eye"></i> View
+                            </a>
+                            <a href="#" class="btn btn-warning btn-sm">
+                                <i class="uil uil-edit"></i> Edit
+                            </a>
+                            <form action="#" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="uil uil-trash-alt"></i> Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="uil uil-trash-alt"></i> Delete
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -62,7 +115,8 @@
                 </div>
             </div>
         @endforelse
-    </div> --}}
+    </div>
+    
 
     {{-- <!-- Pagination -->
     <div class="mt-4">
