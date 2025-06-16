@@ -110,12 +110,33 @@ class AdminCoursesController extends Controller
     //     // Logic to show students enrolled in a specific course
     //     return view('admin.courses.students', compact('courseId')); // Ensure this view exists
     // }
-    // public function search(Request $request)
-    // {
-    //     $query = $request->input('query');
-    //     // Logic to search courses based on the query
-    //     // For example, you might filter courses by name or description
-    //     return view('admin.courses.search', compact('query')); // Ensure this view exists
-    // }
+    public function search(Request $request)
+    {
+        $query = $request->input('search');
+        $courses= collect();
+        $message=null;
+
+        if(!empty($query)){
+            $courses = courses::where('title', 'like', '%' . $query . '%')
+                ->orWhere('description', 'like', '%' . $query . '%')
+                ->orWhere('category', 'like', '%' . $query . '%')
+                ->orWhere('level', 'like', '%' . $query . '%')
+                ->orWhere('instructor', 'like', '%' . $query . '%')
+                ->get();
+
+            if ($courses->isEmpty()) {
+                $message = "No courses found for your search query.";
+            }
+        } else {
+            $message = "Please enter a search term.";
+        }
+        
+        // For example, you might filter courses by name or description
+        return view('admin.courses.index', [
+            'courses' => $courses,
+            'searchQuery' => $query,
+            'message' => $message,
+        ]); // Ensure this view exists
+    }
 
 }

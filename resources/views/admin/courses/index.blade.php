@@ -16,7 +16,7 @@
     <!-- Search Bar -->
     <div class="row mb-4">
         <div class="col-md-8">
-            <form action="{{ route('admin.courses.index') }}" method="GET">
+            <form action="{{ route('admin.courses.search') }}" method="GET">
                 <div class="input-group">
                     <input 
                         type="text" 
@@ -26,6 +26,11 @@
                         value="{{ request('search') }}"
                         aria-label="Search courses"
                     >
+                    @if (request('search'))
+                        <a href="{{ route('admin.courses.index') }}" class="btn btn-outline-secondary">
+                            <i class="uil uil-times"></i> Clear
+                        </a>
+                    @endif
                     <button type="submit" class="btn btn-success rounded-end">
                         <i class="uil uil-search"></i> Search
                     </button>

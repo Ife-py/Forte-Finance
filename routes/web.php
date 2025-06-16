@@ -73,6 +73,7 @@ Route::controller(AdminCoursesController::class)->prefix('admin/courses')->group
     Route::get('/{id}/edit','edit')->name('admin.courses.edit');
     Route::put('/{id}/update','update')->name('admin.courses.update');
     Route::delete('/{id}/destroy','destroy')->name('admin.courses.destroy');
+    Route::get('/search','search')->name('admin.courses.search');
 });
 
 Route::controller(AdminAuthController::class)->prefix('dashboard')->group(function(){
