@@ -69,6 +69,7 @@ Route::controller(AdminCoursesController::class)->prefix('admin/courses')->group
     Route::get('/','index')->name('admin.courses.index');
     Route::get('/create','create')->name('admin.courses.create');
     Route::post('/store','store')->name('admin.courses.store');
+    Route::get('/show/{id}','show')->name('admin.courses.show');
     Route::get('/{id}/edit','edit')->name('admin.courses.edit');
     Route::put('/{id}/update','update')->name('admin.courses.update');
     Route::delete('/{id}/destroy','destroy')->name('admin.courses.destroy');

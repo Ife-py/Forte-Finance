@@ -24,15 +24,15 @@ class AdminCoursesController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'category' => 'nullable|string|max:255',
-            'level' => 'nullable|string|in:Omega,Sigma,beta,alpha',
+            'level' => 'nullable|string|in:Omega,Sigma,Beta,Alpha',
             'duration' => 'nullable|integer|min:1', // Duration in minutes
             'instructor' => 'nullable|string|max:255',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             // Validation for file uploads
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'audio' => 'nullable|mimetypes:audio/mpeg,audio/wav|max:51200',
-            'video' => 'nullable|mimetypes:video/mp4,video/quicktime|max:102400',
+            'audio' => 'nullable|mimetypes:audio/mpeg,audio/wav|max:256000', // 250MB
+            'video' => 'nullable|mimetypes:video/mp4,video/quicktime|max:512000', // 500MB
             // Add other validation as needed
         ]);
 
@@ -72,11 +72,13 @@ class AdminCoursesController extends Controller
         return redirect()->route('admin.courses.index')->with('success', 'Course created successfully!');
     }
 
-    // public function show($id)
-    // {
-    //     // Logic to show a specific course
-    //     return view('admin.courses.show', compact('id')); // Ensure this view exists
-    // }
+    public function show($id)
+    {
+        // Logic to show a specific course
+        $course = courses::findOrFail($id);
+
+        return view('admin.courses.show', compact('course')); // Ensure this view exists
+    }
     // public function edit($id)
     // {
     //     // Logic to edit a specific course

@@ -91,7 +91,7 @@
     
                         <!-- Actions -->
                         <div class="mt-auto d-flex gap-2">
-                            <a href="#" class="btn btn-info btn-sm">
+                            <a href="{{ route('admin.courses.show', $course->id) }}" class="btn btn-info btn-sm">
                                 <i class="uil uil-eye"></i> View
                             </a>
                             <a href="#" class="btn btn-warning btn-sm">
