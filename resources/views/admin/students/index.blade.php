@@ -92,8 +92,8 @@
         </div>
 
         <!-- Pagination -->
-        {{-- <div class="mt-4">
+        <div class="mt-4">
         {{ $students->links() }}
-    </div> --}}
+    </div>
     </div>
 @endsection

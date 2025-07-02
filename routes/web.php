@@ -8,6 +8,8 @@ use App\Http\Controllers\Dashboard\AdminAuthController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\AdminStudentsController;
 use App\Http\Controllers\admin\AdminCoursesController;
+use App\Http\Controllers\admin\AdminSettingsController;
+use App\Http\Controllers\admin\AdminCertificateController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -74,6 +76,22 @@ Route::controller(AdminCoursesController::class)->prefix('admin/courses')->group
     Route::put('/{id}/update','update')->name('admin.courses.update');
     Route::delete('/{id}/destroy','destroy')->name('admin.courses.destroy');
     Route::get('/search','search')->name('admin.courses.search');
+});
+
+Route::controller(AdminSettingsController::class)->prefix('admin/settings')->group(function(){
+    Route::get('/','index')->name('admin.settings.index');
+    Route::get('/edit','edit')->name('admin.settings.edit');
+    Route::put('/update','update')->name('admin.settings.update');
+});
+
+Route::controller(AdminCertificateController::class)->prefix('admin/certificates')->group(function(){
+    Route::get('/','index')->name('admin.certificates.index');
+    Route::get('/create','create')->name('admin.certificates.create');
+    Route::post('/store','store')->name('admin.certificates.store');
+    Route::get('/show/{id}','show')->name('admin.certificates.show');
+    Route::get('/{id}/edit','edit')->name('admin.certificates.edit');
+    Route::put('/{id}/update','update')->name('admin.certificates.update');
+    Route::delete('/{id}/destroy','destroy')->name('admin.certificates.destroy');
 });
 
 Route::controller(AdminAuthController::class)->prefix('dashboard')->group(function(){

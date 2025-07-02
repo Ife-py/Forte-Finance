@@ -10,8 +10,8 @@ class AdminStudentsController extends Controller
 {
     public function index()
     {
-        $students= User::all();
-        return view('admin.students.index',compact("students")); // Ensure this view exists
+        $students= User::paginate(10);
+        return view('admin.students.index',compact("students"));
     }
 
 

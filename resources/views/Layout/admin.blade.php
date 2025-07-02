@@ -136,12 +136,12 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#certificates">
+                                <a class="nav-link" href="{{ route('admin.certificates.index') }}">
                                     <i class="uil uil-award"></i> Certificates
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#settings">
+                                <a class="nav-link" href="{{ route('admin.settings.index') }}">
                                     <i class="uil uil-setting"></i> Settings
                                 </a>
                             </li>
