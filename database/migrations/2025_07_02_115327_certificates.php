@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('certificates', function (Blueprint $table) {
+        Schema::create('Certificates', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
-            $table->string('certificate_title'); 
+            $table->string('certificate_title');
+            $table->string('certificate_description')->nullable(); // Optional description for the certificate
             $table->string('certificate_image')->nullable();
             $table->date('issued_at'); // Date when the certificate was issued
             $table->timestamps();

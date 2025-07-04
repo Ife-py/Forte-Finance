@@ -40,8 +40,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="title" class="form-label fw-semibold">Certificate Title</label>
-                            <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
-                            @error('title')
+                            <input type="text" name="certificate_title" id="certificate_title" class="form-control" value="{{ old('certificate_title') }}" required>
+                            @error('certificate_title')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
                         </div>

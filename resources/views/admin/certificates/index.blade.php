@@ -2,72 +2,74 @@
 
 @section('content')
 <div class="container py-4">
-    <div class="row mb-4">
-        <div class="col-lg-8 mx-auto">
-            <h1 class="text-success fw-bold mb-3">Certificates</h1>
-            <p class="text-muted mb-4">View, search, and manage all certificates awarded to students.</p>
-            <a href="{{ route('admin.certificates.create') }}" class="btn btn-success mb-3">
-                <i class="uil uil-plus-circle"></i> Issue New Certificate
-            </a>
-            <!-- Search Bar -->
-            <form action="{{ route('admin.certificates.index') }}" method="GET" class="mb-4">
-                <div class="input-group">
-                    <input type="text" name="search" class="form-control" placeholder="Search by student or course..." value="{{ request('search') }}">
-                    <button type="submit" class="btn btn-success"><i class="uil uil-search"></i> Search</button>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="text-success fw-bold mb-1">Awarded Certificates</h1>
+            <p class="text-muted">Manage and preview all certificates issued to students.</p>
+        </div>
+        <a href="{{ route('admin.certificates.create') }}" class="btn btn-success shadow">
+            <i class="uil uil-plus-circle"></i> Issue Certificate
+        </a>
+    </div>
+
+    <!-- Search -->
+    <form action="{{ route('admin.certificates.index') }}" method="GET" class="mb-4">
+        <div class="input-group shadow-sm">
+            <input type="text" name="search" class="form-control" placeholder="Search by student or course..." value="{{ request('search') }}">
+            <button class="btn btn-outline-success" type="submit">
+                <i class="uil uil-search"></i> Search
+            </button>
+        </div>
+    </form>
+
+    <!-- Certificate Cards -->
+    <div class="row">
+        @forelse($certificates as $certificate)
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm border-0 h-100">
+                @if ($certificate->certificate_image)
+                <img src="{{ asset('storage/' . $certificate->certificate_image) }}" alt="Certificate Image" class="card-img-top" style="object-fit: cover; height: 200px;">
+                @else
+                <div class="bg-secondary-subtle d-flex align-items-center justify-content-center text-muted" style="height: 200px;">
+                    <span>No Image</span>
                 </div>
-            </form>
-            <!-- Certificates Table -->
-            <div class="card shadow-lg border-0">
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead class="table-success">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Student</th>
-                                    <th>Course</th>
-                                    <th>Certificate Title</th>
-                                    <th>Date Issued</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- @forelse($certificates as $certificate)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $certificate->student->name ?? 'N/A' }}</td>
-                                        <td>{{ $certificate->course->name ?? 'N/A' }}</td>
-                                        <td>{{ $certificate->title }}</td>
-                                        <td>{{ $certificate->created_at->format('M d, Y') }}</td>
-                                        <td>
-                                            <a href="{{ route('admin.certificates.show', $certificate->id) }}" class="btn btn-info btn-sm">
-                                                <i class="uil uil-eye"></i> View
-                                            </a>
-                                            <a href="{{ route('admin.certificates.edit', $certificate->id) }}" class="btn btn-warning btn-sm">
-                                                <i class="uil uil-edit"></i> Edit
-                                            </a>
-                                            <form action="{{ route('admin.certificates.destroy', $certificate->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this certificate?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm"><i class="uil uil-trash-alt"></i> Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center text-muted">No certificates found.</td>
-                                    </tr>
-                                @endforelse --}}
-                            </tbody>
-                        </table>
+                @endif
+                <div class="card-body d-flex flex-column">
+                    <h5 class="fw-bold text-success">{{ $certificate->certificate_title }}</h5>
+                    <p class="mb-1"><strong>Student:</strong> {{ $certificate->student->name ?? 'N/A' }}</p>
+                    <p class="mb-1"><strong>Course:</strong> {{ $certificate->course->name ?? 'N/A' }}</p>
+                    <p class="text-muted mb-3"><small><i class="uil uil-calendar-alt"></i> Issued: {{ $certificate->issued_at }}</small></p>
+
+                    <div class="mt-auto d-flex justify-content-between">
+                        <a href="{{ route('admin.certificates.show', $certificate->id) }}" class="btn btn-sm btn-outline-primary">
+                            <i class="uil uil-eye"></i>
+                        </a>
+                        <a href="{{ route('admin.certificates.edit', $certificate->id) }}" class="btn btn-sm btn-outline-warning">
+                            <i class="uil uil-edit"></i>
+                        </a>
+                        <form action="{{ route('admin.certificates.destroy', $certificate->id) }}" method="POST" onsubmit="return confirm('Delete this certificate?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                <i class="uil uil-trash-alt"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
-            <!-- Pagination -->
-            <div class="mt-3">
-                {{-- {{ $certificates->links() }} --}}
+        </div>
+        @empty
+        <div class="col-12">
+            <div class="alert alert-info text-center shadow-sm">
+                No certificates found.
             </div>
         </div>
+        @endforelse
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-4">
+        {{-- {{ $certificates->links() }} --}}
     </div>
 </div>
 @endsection

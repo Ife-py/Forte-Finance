@@ -12,8 +12,9 @@ class AdminCertificateController extends Controller
 {
     public function index()
     {
-        // Logic to list all certificates
-        return view('admin.certificates.index');
+        $certificates = Certificate::paginate(10);
+        return view('admin.certificates.index', compact('certificates'));
+    
     }
 
     public function create()
@@ -43,6 +44,7 @@ class AdminCertificateController extends Controller
         $certificate->student_id = $validatedData['student_id'];
         $certificate->course_id = $validatedData['course_id'];
         $certificate->certificate_title = $validatedData['certificate_title'];
+        $certificate->certificate_description = $request->input('certificate_description', null);
         $certificate->certificate_image = $imagePath;
         $certificate->issued_at = $validatedData['issued_at'];
         $certificate->save();
@@ -53,7 +55,8 @@ class AdminCertificateController extends Controller
     public function show($id)
     {
         // Logic to show a specific certificate
-        return view('admin.certificates.show', compact('id'));
+        $certificate = Certificate::findOrFail($id);
+        return view('admin.certificates.show', compact('certificate'));
     }
 
     public function edit($id)
