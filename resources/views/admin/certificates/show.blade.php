@@ -14,7 +14,7 @@
                             Awarded to <span class="fw-semibold">{{ $certificate->student->name ?? 'N/A' }}</span>
                         </p>
                         <p class="text-muted">
-                            For completing <span class="fw-semibold">{{ $certificate->course->name ?? 'N/A' }}</span>
+                            For completing <span class="fw-semibold">{{ $certificate->course->title ?? 'N/A' }}</span>
                         </p>
                     </div>
                     <div class="text-center mb-4">
@@ -28,7 +28,7 @@
                     </div>
                     <div class="mb-4">
                         <h5 class="fw-semibold">Description</h5>
-                        <p class="mb-0">{{ $certificate->description ?? 'No description provided.' }}</p>
+                        <p class="mb-0">{{ $certificate->certificate_description ?? 'No description provided.' }}</p>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">

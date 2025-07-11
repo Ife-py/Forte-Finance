@@ -16,7 +16,6 @@ class AdminCertificateController extends Controller
         return view('admin.certificates.index', compact('certificates'));
     
     }
-
     public function create()
     {
         $students = User::all();
@@ -24,6 +23,25 @@ class AdminCertificateController extends Controller
         return view('admin.certificates.create', compact('students', 'courses'));
     }
 
+    public function search (Request $request)
+    {
+        $query = $request->input('query');
+        $certificates=collect();
+        $message = null;
+        
+        if (!empty($query)) {
+            $certificates = Certificate::where('certificate_title', 'like', "%{$query}%")
+                ->orwhere('student_id','like', "%{$query}%")
+                ->orwhere('course_id','like', "%{$query}%")
+                ->get();
+            if ($certificates->isEmpty()) {
+                $message = 'No results found for your search.';
+            }
+        } else {
+            $message = 'Please enter a search term.';
+        }
+        return view('admin.certificates.index', compact('certificates', 'message'));
+    }
     public function store(Request $request)
     {
         // Validate the request data
@@ -62,7 +80,10 @@ class AdminCertificateController extends Controller
     public function edit($id)
     {
         // Logic to show form for editing a specific certificate
-        return view('admin.certificates.edit', compact('id'));
+        $certificate = Certificate::findOrFail($id);
+        $students = User::all();
+        $courses = courses::all();
+        return view('admin.certificates.edit', compact('certificate', 'students', 'courses'));
     }
 
     public function update(Request $request, $id)
@@ -74,6 +95,9 @@ class AdminCertificateController extends Controller
     public function destroy($id)
     {
         // Logic to delete a specific certificate
+        $certificate = Certificate::findOrFail($id);
+        $certificate->delete();
+        // Redirect back with success message 
         return redirect()->route('admin.certificates.index')->with('success', 'Certificate deleted successfully.');
     }
 }

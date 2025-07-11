@@ -92,6 +92,7 @@ Route::controller(AdminCertificateController::class)->prefix('admin/certificates
     Route::get('/{id}/edit','edit')->name('admin.certificates.edit');
     Route::put('/{id}/update','update')->name('admin.certificates.update');
     Route::delete('/{id}/destroy','destroy')->name('admin.certificates.destroy');
+    Route::get('/search','search')->name('admin.certificates.search');
 });
 
 Route::controller(AdminAuthController::class)->prefix('dashboard')->group(function(){
