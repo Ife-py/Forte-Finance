@@ -20,38 +20,41 @@
 
         /* Navbar */
         .navbar {
-            background-color: transparent;
+            background: linear-gradient(90deg, #198754 70%, #43cea2 100%);
             padding: 15px 0;
-            /* position: fixed; */
+            box-shadow: 0 2px 8px rgba(33, 150, 83, 0.08);
         }
 
-
-        .navbar-dark .navbar-nav .nav-link {
-            color: #198754;
-            font-weight: 500;
-            transition: 0.3s;
+        .navbar .navbar-brand,
+        .navbar .nav-link {
+            color: #fff !important;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
         }
 
-        .navbar-dark .navbar-nav .nav-link.active {
-            color: #198754;
-            /* Green color for the active link */
+        .navbar .navbar-brand:hover,
+        .navbar .nav-link:hover {
+            color: #d4edda !important;
+        }
+
+        .navbar .nav-link.active {
+            color: #ffd200 !important;
+            border-bottom: 2px solid #ffd200;
             font-weight: bold;
-            border-bottom: 2px solid #198754;
-            /* Underline the active link */
             padding-bottom: 5px;
-            /* Add spacing between text and underline */
         }
 
-        .navbar-dark .navbar-brand {
-            color: #198754;
-            /* Green color for the brand name */
-            font-weight: bold;
-            transition: 0.3s;
+        .navbar-toggler {
+            border-color: #fff;
         }
 
-        .navbar-dark .navbar-nav .nav-link:hover {
-            color: #145a32;
-            ;
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        .navbar .navbar-brand img {
+            filter: drop-shadow(0 2px 4px rgba(33, 150, 83, 0.15));
         }
 
         /* Hero Section */
@@ -165,6 +168,7 @@
             /* Theme color on hover */
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
+
         .hover-popup1 {
             position: relative;
             overflow: hidden;
@@ -185,9 +189,9 @@
 
     <!-- Navigation Bar -->
     <?php $name = 'ForteFinance'; ?>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <img src="{{ asset('LogoFF.png') }}" alt="Logo" width="80" height="80">
+            <img src="{{ asset('LogoFF.png') }}" alt="Logo" width="60" height="60" class="me-2">
             <a class="navbar-brand fw-bold" href="{{ route('index') }}">{{ $name }}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -209,7 +213,6 @@
                         <a class="nav-link {{ Request::is('contact-us') ? 'active' : '' }}"
                             href="{{ route('contact-us') }}">Contact Us</a>
                     </li>
-
                 </ul>
             </div>
         </div>
