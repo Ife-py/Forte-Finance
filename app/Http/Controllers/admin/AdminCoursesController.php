@@ -89,15 +89,75 @@ class AdminCoursesController extends Controller
     public function update(Request $request, $id)
     {
         // Logic to update course data
-        // Validate and update the course data
-        return redirect()->route('admin.courses.index')->with('success', 'Course updated successfully.');
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'category' => 'nullable|string|max:255',
+            'level' => 'nullable|string|in:Omega,Sigma,Beta,Alpha',
+            'duration' => 'nullable|integer|min:1', // Duration in minutes
+            'instructor' => 'nullable|string|max:255',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+            // Validation for file uploads
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'audio' => 'nullable|mimetypes:audio/mpeg,audio/wav|max:256000', // 250MB
+            'video' => 'nullable|mimetypes:video/mp4,video/quicktime|max:512000', // 500MB
+        ]);
+        // Fetch the course
+        $course = courses::findOrFail($id);
+        // Handle image upload
+        $imagePath = $course->image_path;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('courses/images', 'public');
+        }
+        // Handle audio upload
+        $audioPath = $course->audio_path;
+        if ($request->hasFile('audio')) {
+            $audioPath = $request->file('audio')->store('courses/audios', 'public');
+        }
+        // Handle video upload
+        $videoPath = $course->video_path;
+        if ($request->hasFile('video')) {
+            $videoPath = $request->file('video')->store('courses/videos', 'public');
+        }
+        // Update the course
+        $course->title = $validatedData['title'];
+        $course->description = $validatedData['description'] ?? null;
+        $course->category = $validatedData['category'] ?? null;
+        $course->level = $validatedData['level'] ?? null;
+        $course->image_path = $imagePath;
+        $course->audio_path = $audioPath;
+        $course->video_path = $videoPath;
+        $course->duration = $request->input('duration');
+        $course->instructor = $request->input('instructor');
+        $course->start_date = $request->input('start_date');
+        $course->end_date = $request->input('end_date');
+        $course->save();
+        // Redirect back with success message
+        return redirect()->route('admin.courses.index')->with('success', 'Course updated successfully!');
     }
 
-    // public function destroy($id)
-    // {
-    //     // Logic to delete a specific course
-    //     return redirect()->route('admin.courses.index')->with('success', 'Course deleted successfully.');
-    // }
+
+
+    public function destroy($id)
+    {
+        // Logic to delete a specific course
+        $course = courses::findOrFail($id);
+        // Delete the course image, audio, and video files if they exist
+        if ($course->image_path) {
+            \Storage::disk('public')->delete($course->image_path);
+        }
+        if ($course->audio_path) {
+            \Storage::disk('public')->delete($course->audio_path);
+        }
+        if ($course->video_path) {
+            \Storage::disk('public')->delete($course->video_path);
+        }
+        // Delete the course record
+        $course->delete();
+
+        return redirect()->route('admin.courses.index')->with('error', 'Course deleted successfully.');
+    }
     // public function enroll($id)
     // {
     //     // Logic to enroll a student in a course

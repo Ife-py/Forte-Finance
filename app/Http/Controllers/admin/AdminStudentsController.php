@@ -65,7 +65,7 @@ class AdminStudentsController extends Controller
         $student->delete();
 
         // Redirect back with a success message
-        return redirect()->route('admin.students.index')->with('success', 'Student deleted successfully.');
+        return redirect()->route('admin.students.index')->with('error', 'Student deleted successfully.');
     }
     
     public function search(Request $request)

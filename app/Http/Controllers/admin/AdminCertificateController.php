@@ -122,6 +122,6 @@ class AdminCertificateController extends Controller
         $certificate = Certificate::findOrFail($id);
         $certificate->delete();
         // Redirect back with success message 
-        return redirect()->route('admin.certificates.index')->with('success', 'Certificate deleted successfully.');
+        return redirect()->route('admin.certificates.index')->with('error', 'Certificate deleted successfully.');
     }
 }
