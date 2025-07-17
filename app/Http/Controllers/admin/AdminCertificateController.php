@@ -89,6 +89,30 @@ class AdminCertificateController extends Controller
     public function update(Request $request, $id)
     {
         // Logic to update a specific certificate
+        $request->validate([
+            'student_id' => 'required|exists:users,id',
+            'course_id' => 'required|exists:courses,id',
+            'certificate_title' => 'required|string|max:255',
+            'certificate_image' => 'nullable|image|mimes:jpeg,png,jpg,gif', // 2MB max
+            'issued_at' => 'required|date',
+        ]);
+        // Fetch the certificate
+        $certificate = Certificate::findOrFail($id);
+        // Handle the certificate image upload
+        $imagePath = $certificate->certificate_image;
+        if ($request->hasFile('certificate_image')) {
+            $imagePath = $request->file('certificate_image')->store('certificates/images', 'public');
+        }
+        // Update the certificate data
+        $certificate->student_id = $request->input('student_id');
+        $certificate->course_id = $request->input('course_id');
+        $certificate->certificate_title = $request->input('certificate_title');
+        $certificate->certificate_description = $request->input('certificate_description', null);
+        $certificate->certificate_image = $imagePath;
+        $certificate->issued_at = $request->input('issued_at');
+        // Save the changes
+        $certificate->save();
+        // Redirect back with success message
         return redirect()->route('admin.certificates.index')->with('success', 'Certificate updated successfully.');
     }
 
