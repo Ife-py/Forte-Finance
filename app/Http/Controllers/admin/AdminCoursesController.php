@@ -79,17 +79,20 @@ class AdminCoursesController extends Controller
 
         return view('admin.courses.show', compact('course')); // Ensure this view exists
     }
-    // public function edit($id)
-    // {
-    //     // Logic to edit a specific course
-    //     return view('admin.courses.edit', compact('id')); // Ensure this view exists
-    // }
-    // public function update(Request $request, $id)
-    // {
-    //     // Logic to update course data
-    //     // Validate and update the course data
-    //     return redirect()->route('admin.courses.index')->with('success', 'Course updated successfully.');
-    // }
+    public function edit($id)
+    {
+        // Logic to edit a specific course
+        $course = courses::findOrFail($id); 
+        return view('admin.courses.edit', compact('course')); // Ensure this view exists
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Logic to update course data
+        // Validate and update the course data
+        return redirect()->route('admin.courses.index')->with('success', 'Course updated successfully.');
+    }
+
     // public function destroy($id)
     // {
     //     // Logic to delete a specific course

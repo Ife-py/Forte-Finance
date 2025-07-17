@@ -99,7 +99,7 @@
                             <a href="{{ route('admin.courses.show', $course->id) }}" class="btn btn-info btn-sm">
                                 <i class="uil uil-eye"></i> View
                             </a>
-                            <a href="#" class="btn btn-warning btn-sm">
+                            <a href="{{  route('admin.courses.edit', $course->id) }}" class="btn btn-warning btn-sm">
                                 <i class="uil uil-edit"></i> Edit
                             </a>
                             <form action="#" method="POST" class="d-inline">
