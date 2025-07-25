@@ -24,6 +24,11 @@ class LoginController extends Controller
         if(!$user){
             return redirect()->back()->with('error', 'User not found');
         }
+        // Check if the user has verified their email
+        if (!$user->hasVerifiedEmail()) {
+            return redirect()->back()->with('error', 'You must verify your email before logging in.');
+        }
+
         if(!Auth::attempt(['name' => $request->username, 'password' => $request->password])){
             return redirect()->back()->with('error', 'Invalid Password');
         }

@@ -10,7 +10,7 @@ class AdminStudentsController extends Controller
 {
     public function index()
     {
-        $students= User::paginate(10);
+        $students = User::paginate(10);
         return view('admin.students.index',compact("students"));
     }
 

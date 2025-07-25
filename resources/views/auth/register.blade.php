@@ -33,9 +33,9 @@
                 <form action="{{ route('store') }}" method="POST" autocomplete="off">
                     @csrf
                     <div class="mb-3">
-                        <label for="username" class="form-label fw-semibold">Username</label>
-                        <input type="text" class="form-control rounded-pill" id="username" name="username" placeholder="Enter your username" required>
-                        @error('username')
+                        <label for="name" class="form-label fw-semibold">Username</label>
+                        <input type="text" class="form-control rounded-pill" id="name" name="name" placeholder="Enter your username" required>
+                        @error('name')
                             <p class="text-danger small">{{ $message }}</p>
                         @enderror
                     </div>
