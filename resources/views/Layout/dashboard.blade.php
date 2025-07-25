@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortefinance - Education & Industrial Solutions</title>
+    <title>Fortefinance - Dashboard</title>
 
     <!-- Bootstrap & Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
@@ -13,65 +13,177 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #e6fff5 60%, #f8f9fa 100%);
+            min-height: 100vh;
         }
 
         .sidebar {
             min-height: 100vh;
-            background: #198754;
+            background: linear-gradient(135deg, #198754 80%, #43cea2 100%);
             color: #fff;
             padding-top: 30px;
+            box-shadow: 2px 0 16px rgba(33, 150, 83, 0.08);
+        }
+
+        .sidebar .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1.5rem 1rem 1rem 1rem;
+        }
+
+        .sidebar .brand-logo img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(33, 150, 83, 0.15);
+        }
+
+        .sidebar .brand-logo span {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #fff;
         }
 
         .sidebar .nav-link {
             color: #fff;
             font-weight: 500;
-            padding: 0.75rem 1rem;
-            border-radius: 5px;
+            padding: 0.75rem 1.2rem;
+            border-radius: 12px;
             margin: 2px 10px;
-            transition: background 0.2s, color 0.2s;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .sidebar .nav-link:hover,
         .sidebar .nav-link.active {
-            background: #157347;
-            color: #d4edda;
+            background: rgba(255, 255, 255, 0.13);
+            color: #ffd600;
+            box-shadow: 0 2px 12px rgba(33, 150, 83, 0.10);
         }
 
         .sidebar .nav-link i {
-            margin-right: 10px;
+            font-size: 1.2rem;
         }
 
         .sidebar .collapse .nav-link {
             padding-left: 2.5rem;
-            font-size: 0.9rem;
+            font-size: 0.97rem;
         }
 
-        .hover-popup {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .sidebar .sidebar-footer {
+            margin-top: auto;
+            padding: 1.5rem 1rem 1rem 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .hover-popup:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        .sidebar .sidebar-footer .nav-link {
+            color: #fff;
+            font-weight: 600;
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+        }
+
+        .sidebar .sidebar-footer .nav-link:hover {
+            background: rgba(255, 255, 255, 0.10);
+            color: #ffd600;
         }
 
         .main-content {
-            padding: 2rem;
+            padding: 2.5rem 2rem;
+            min-height: 100vh;
+            background: transparent;
         }
 
-        .navbar-toggler {
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-header .welcome {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #198754;
+        }
+
+        .dashboard-header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .dashboard-header .user-info img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #43cea2;
+        }
+
+        .dashboard-header .user-info span {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .card-dashboard {
+            border-radius: 1.2rem;
+            box-shadow: 0 4px 24px rgba(33, 150, 83, 0.10);
             border: none;
-            padding: 0.25rem 0.5rem;
+            background: #fff;
+            transition: transform 0.18s, box-shadow 0.18s;
+        }
+
+        .card-dashboard:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 32px rgba(33, 150, 83, 0.13);
+        }
+
+        .card-dashboard .card-body {
+            padding: 2rem 1.5rem;
+        }
+
+        .card-dashboard .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #198754;
+        }
+
+        .card-dashboard .card-text {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #43cea2;
         }
 
         @media (max-width: 991.98px) {
             .sidebar {
                 min-height: auto;
+                position: static !important;
+                box-shadow: none;
             }
 
             .main-content {
-                padding: 1rem;
+                padding: 1.2rem 0.5rem;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .sidebar .brand-logo span {
+                font-size: 1.1rem;
+            }
+
+            .main-content {
+                padding: 0.7rem 0.2rem;
             }
         }
     </style>
@@ -81,12 +193,13 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <nav class="col-lg-2 col-md-3 sidebar bg-success d-flex flex-column p-0 position-fixed position-lg-sticky"
+            <nav class="col-lg-2 col-md-3 sidebar d-flex flex-column p-0 position-fixed position-lg-sticky"
                 id="sidebarMenu" style="min-height: 100vh; top: 0; z-index: 1000;">
                 <div class="d-flex flex-column h-100">
                     <!-- Brand/Logo -->
-                    <div class="p-3 border-bottom border-success">
-                        <h5 class="text-white mb-0">Fortefinance</h5>
+                    <div class="brand-logo">
+                        <img src="{{ asset('LogoFF.png') }}" alt="Logo">
+                        <span>ForteFinance</span>
                     </div>
 
                     <!-- Sidebar Toggle for small screens -->
@@ -97,16 +210,15 @@
                     </button>
 
                     <!-- Sidebar Links -->
-                    <!-- Sidebar Links -->
                     <div class="collapse d-lg-block" id="sidebarLinks">
                         <ul class="nav flex-column px-2">
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('dashboard') }}">
+                                <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
                                     <i class="uil uil-apps"></i> Dashboard
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="collapse" href="#studentsCollapse" role="button"
+                                <a class="nav-link {{ request()->routeIs('students*') ? 'active' : '' }}" data-bs-toggle="collapse" href="#studentsCollapse" role="button"
                                     aria-expanded="false" aria-controls="studentsCollapse">
                                     <i class="uil uil-users-alt"></i> Students
                                     <i class="uil uil-angle-down float-end"></i>
@@ -120,7 +232,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="collapse" href="#coursesCollapse" role="button"
+                                <a class="nav-link {{ request()->routeIs('courses') ? 'active' : '' }}" data-bs-toggle="collapse" href="#coursesCollapse" role="button"
                                     aria-expanded="false" aria-controls="coursesCollapse">
                                     <i class="uil uil-book-open"></i> Courses
                                     <i class="uil uil-angle-down float-end"></i>
@@ -149,9 +261,8 @@
                         </ul>
                     </div>
 
-
-                    <!-- Logout at bottom -->
-                    <div class="mt-auto p-3">
+                    <!-- Sidebar Footer/Logout -->
+                    <div class="sidebar-footer mt-auto">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="nav-link btn btn-link p-0 text-decoration-none">
