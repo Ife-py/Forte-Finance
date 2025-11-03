@@ -224,8 +224,8 @@
         </div>
 
         <ul class="nav flex-column">
-            <li><a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="uil uil-apps"></i> Dashboard</a></li>
-            <li><a href="{{ route('courses') }}" class="nav-link {{ request()->routeIs('courses') ? 'active' : '' }}"><i class="uil uil-book-open"></i> Courses</a></li>
+            <li><a href="{{ route('dashboard.index') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="uil uil-apps"></i> Dashboard</a></li>
+            <li><a href="{{ route('dashboard.courses.index') }}" class="nav-link {{ request()->routeIs('courses') ? 'active' : '' }}"><i class="uil uil-book-open"></i> Courses</a></li>
             <li><a href="#" class="nav-link"><i class="uil uil-award"></i> Certificates</a></li>
             <li><a href="#" class="nav-link"><i class="uil uil-setting"></i> Settings</a></li>
         </ul>

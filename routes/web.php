@@ -5,6 +5,7 @@ use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\AdminAuthController;
+use App\Http\Controllers\Dashboard\StudentCoursesController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\AdminStudentsController;
 use App\Http\Controllers\admin\AdminCoursesController;
@@ -46,10 +47,12 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::middleware('auth')->group(function(){
-    Route::controller(DashboardController::class)->prefix('dashboard')->group(function(){
-    Route::get('/','index')->name('dashboard');
-    Route::get('/students','students')->name('students');
-    Route::get('/courses','courses')->name('courses');
+    Route::controller(DashboardController::class)->prefix('dashboard')->name('dashboard.')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::controller(StudentCoursesController::class)->name('courses.')->group(function(){
+            Route::get('/courses','index')->name('index');
+        });
+        Route::get('/students','students')->name('students');
     });
 });
 

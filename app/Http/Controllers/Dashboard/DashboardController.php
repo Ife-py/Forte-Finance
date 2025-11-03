@@ -17,7 +17,4 @@ class DashboardController extends Controller
         return view("Dashboard.students");
     }
 
-    public function courses(){
-        return view("Dashboard.courses");
-    }
 }
