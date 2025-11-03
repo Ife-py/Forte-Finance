@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\AdminStudentsController;
 use App\Http\Controllers\admin\AdminCoursesController;
 use App\Http\Controllers\admin\AdminSettingsController;
 use App\Http\Controllers\admin\AdminCertificateController;
+use App\Http\Controllers\admin\ExamController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -95,6 +96,18 @@ Route::controller(AdminCertificateController::class)->prefix('admin/certificates
     Route::put('/{id}/update','update')->name('admin.certificates.update');
     Route::delete('/{id}/destroy','destroy')->name('admin.certificates.destroy');
     Route::get('/search','search')->name('admin.certificates.search');
+});
+
+Route::controller(ExamController::class)->prefix('admin/exams')->group(function(){
+    Route::get('/','index')->name('admin.exams.index');
+    Route::get('/create','create')->name('admin.exams.create');
+    Route::post('/store','store')->name('admin.exams.store');
+    Route::get('/{exam}','show')->name('admin.exams.show');
+    Route::post('exams/{exam}/questions', 'storeQuestion')->name('admin.exams.questions.store');
+    Route::delete('/exams/{exam}/questions/{question}', 'deleteQuestion')->name('admin.exams.questions.delete');
+    Route::delete('/exams/{exam}','destroy')->name('admin.exams.destroy');
+
+
 });
 
 Route::controller(AdminAuthController::class)->prefix('dashboard')->group(function(){

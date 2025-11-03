@@ -97,7 +97,6 @@
                     </button>
 
                     <!-- Sidebar Links -->
-                    <!-- Sidebar Links -->
                     <div class="collapse d-lg-block" id="sidebarLinks">
                         <ul class="nav flex-column px-2">
                             <li class="nav-item">
@@ -135,6 +134,13 @@
                                     </ul>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('exams.*') ? 'active' : '' }}"
+                                    href="{{ route('admin.exams.index') }}">
+                                    <i class="uil uil-edit-alt"></i> Exams
+                                </a>
+                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.certificates.index') }}">
                                     <i class="uil uil-award"></i> Certificates
