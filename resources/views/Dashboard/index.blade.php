@@ -1,23 +1,50 @@
 @extends('Layout.dashboard')
 
 @section('content')
-    <div class="py-4">
-        <!-- Dashboard Header -->
-        <div class="container-fluid py-3 px-4 bg-white rounded shadow-sm mb-4">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-md-6 d-flex align-items-center gap-3">
-                    <img src="{{ asset('LogoFF.png') }}" alt="Logo" width="60" height="60"
-                        class="rounded-circle border shadow-sm">
-                    <h2 class="text-success fw-bold mb-0">Welcome, {{ $user->name }}!</h2>
-                </div>
+    <div class="container-fluid py-4">
 
-                <div class="col-md-6 d-flex justify-content-md-end gap-3 mt-3 mt-md-0">
-                    <a href="#" class="btn btn-success btn-lg px-4 shadow">
-                        <i class="uil uil-plus-circle me-2"></i> Add New Course
+        <!-- Header -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body d-flex flex-column flex-md-row align-items-md-center justify-content-between">
+                <div class="d-flex align-items-center gap-3">
+                    <img src="{{ asset('LogoFF.png') }}" alt="Logo" width="65" height="65"
+                        class="rounded-circle border shadow-sm">
+                    <div>
+                        <h3 class="fw-bold text-success mb-0">Welcome, {{ $user->name }}</h3>
+                        @if (!empty($user->phase))
+                            <span class="badge rounded-pill bg-light text-success border">
+                                {{ ucfirst($user->phase) }}
+                                @switch(strtolower($user->phase))
+                                    @case('alpha')
+                                        🦁
+                                    @break
+
+                                    @case('beta')
+                                        🐺
+                                    @break
+
+                                    @case('omega')
+                                        🦉
+                                    @break
+
+                                    @case('sigma')
+                                        🐍
+                                    @break
+
+                                    @default
+                                        🌟
+                                @endswitch
+                            </span>
+                        @endif
+                    </div>
+                </div>
+                <div class="mt-3 mt-md-0 d-flex gap-2">
+                    <a href="#" class="btn btn-outline-success px-4">
+                        <i class="uil uil-plus-circle me-2"></i> Add Course
                     </a>
                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
                         @csrf
-                        <button type="submit" class="btn btn-danger btn-lg px-4 shadow">
+                        <button type="submit" class="btn btn-outline-danger px-4">
                             <i class="uil uil-signout me-2"></i> Logout
                         </button>
                     </form>
@@ -25,138 +52,130 @@
             </div>
         </div>
 
+        <!-- Metrics Section -->
+        <div class="row g-4 mb-4">
+            @php
+                $stats = [
+                    [
+                        'icon' => 'uil-users-alt',
+                        'title' => 'Total Students',
+                        'value' => '1,234',
+                        'desc' => 'Active Enrollments',
+                    ],
+                    [
+                        'icon' => 'uil-book-open',
+                        'title' => 'Courses Available',
+                        'value' => '56',
+                        'desc' => 'Open for this phase',
+                    ],
+                    [
+                        'icon' => 'uil-graduation-cap',
+                        'title' => 'Graduates',
+                        'value' => '345',
+                        'desc' => 'Completed successfully',
+                    ],
+                    [
+                        'icon' => 'uil-clock',
+                        'title' => 'Pending Assignments',
+                        'value' => '12',
+                        'desc' => 'Awaiting review',
+                    ],
+                ];
+            @endphp
 
-        <!-- Dashboard Metrics -->
-        <div class="row mb-4">
-            <div class="col-md-3">
-                <div class="card shadow-lg p-4 hover-popup text-center border-0" style="background: #f8f9fa;">
-                    <i class="uil uil-users-alt text-success" style="font-size: 3rem;"></i>
-                    <h5 class="text-success mt-3">Total Students</h5>
-                    <h2 class="fw-bold">1,234</h2>
-                    <p class="text-muted">Active students enrolled</p>
+            @foreach ($stats as $stat)
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <i class="{{ $stat['icon'] }} text-success" style="font-size: 2.5rem;"></i>
+                            <h5 class="fw-semibold mt-2 text-success">{{ $stat['title'] }}</h5>
+                            <h3 class="fw-bold mb-1">{{ $stat['value'] }}</h3>
+                            <small class="text-muted">{{ $stat['desc'] }}</small>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card shadow-lg p-4 hover-popup text-center border-0" style="background: #f8f9fa;">
-                    <i class="uil uil-book-open text-success" style="font-size: 3rem;"></i>
-                    <h5 class="text-success mt-3">Courses Available</h5>
-                    <h2 class="fw-bold">56</h2>
-                    <p class="text-muted">Courses currently available for this Phase</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card shadow-lg p-4 hover-popup text-center border-0" style="background: #f8f9fa;">
-                    <i class="uil uil-graduation-cap text-success" style="font-size: 3rem;"></i>
-                    <h5 class="text-success mt-3">Graduates</h5>
-                    <h2 class="fw-bold">345</h2>
-                    <p class="text-muted">Students who graduated</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card shadow-lg p-4 hover-popup text-center border-0" style="background: #f8f9fa;">
-                    <i class="uil uil-clock text-success" style="font-size: 3rem;"></i>
-                    <h5 class="text-success mt-3">Pending Assignments</h5>
-                    <h2 class="fw-bold">12</h2>
-                    <p class="text-muted">Assignments awaiting review</p>
-                </div>
-            </div>
+            @endforeach
         </div>
 
-        <!-- Recent Activities & Quick Links -->
-        <div class="row mb-4">
-            <div class="col-lg-8 mb-4 mb-lg-0">
-                <div class="card shadow-lg p-4 hover-popup border-0 h-100" style="background: #ffffff;">
-                    <h5 class="text-success fw-bold"><i class="uil uil-history"></i> Recent Activities</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Student <strong>John Doe</strong> enrolled in <strong>"Blockchain
-                                Basics"</strong>.</li>
-                        <li class="list-group-item">New course <strong>"Advanced Crypto Trading"</strong> was added.</li>
-                        <li class="list-group-item">Assignment <strong>"Smart Contracts 101"</strong> was submitted by
-                            <strong>Jane Smith</strong>.</li>
-                        <li class="list-group-item">Certificate issued to <strong>Michael Brown</strong> for completing
-                            <strong>"Crypto Security"</strong>.</li>
-                    </ul>
+        <!-- Two Column Layout -->
+        <div class="row g-4 mb-4">
+            <div class="col-lg-8">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-white border-0">
+                        <h5 class="fw-bold text-success mb-0"><i class="uil uil-history me-2"></i> Recent Activities</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item px-0">🧑‍🎓 <strong>John Doe</strong> enrolled in <em>"Blockchain
+                                    Basics"</em>.</li>
+                            <li class="list-group-item px-0">📘 Added new course <em>"Advanced Crypto Trading"</em>.</li>
+                            <li class="list-group-item px-0">📝 <strong>Jane Smith</strong> submitted <em>"Smart Contracts
+                                    101"</em>.</li>
+                            <li class="list-group-item px-0">🏆 Certificate issued to <strong>Michael Brown</strong>.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+
             <div class="col-lg-4">
-                <div class="card shadow-lg p-4 hover-popup border-0 h-100" style="background: #ffffff;">
-                    <h5 class="text-success fw-bold mb-3"><i class="uil uil-books"></i> Course Materials</h5>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2">
-                            <a href="#" class="text-success text-decoration-none">
-                                <i class="uil uil-file-alt"></i> Introduction to Blockchain (PDF)
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="#" class="text-success text-decoration-none">
-                                <i class="uil uil-play-circle"></i> Crypto Security Video Series
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="#" class="text-success text-decoration-none">
-                                <i class="uil uil-presentation-play"></i> Smart Contracts Slide Deck
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-success text-decoration-none">
-                                <i class="uil uil-link"></i> Recommended Articles & Blogs
-                            </a>
-                        </li>
-                    </ul>
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-white border-0">
+                        <h5 class="fw-bold text-success mb-0"><i class="uil uil-books me-2"></i> Course Materials</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><a href="#" class="text-decoration-none text-success"><i
+                                        class="uil uil-file-alt me-2"></i> Blockchain Intro (PDF)</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none text-success"><i
+                                        class="uil uil-play-circle me-2"></i> Security Video Series</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none text-success"><i
+                                        class="uil uil-presentation-play me-2"></i> Smart Contracts Slides</a></li>
+                            <li><a href="#" class="text-decoration-none text-success"><i
+                                        class="uil uil-link me-2"></i> Blog Recommendations</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Upcoming Events -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="card shadow-lg p-4 hover-popup border-0" style="background: #f8f9fa;">
-                    <h5 class="text-success fw-bold"><i class="uil uil-calendar-alt"></i> Upcoming Events</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Webinar on <strong>"Blockchain for Beginners"</strong> - <em>April 20,
-                                2025</em></li>
-                        <li class="list-group-item">Workshop: <strong>"Smart Contracts Development"</strong> - <em>April 25,
-                                2025</em></li>
-                        <li class="list-group-item">Hackathon: <strong>"Crypto Innovations"</strong> - <em>May 5, 2025</em>
-                        </li>
-                    </ul>
+        <!-- Events & Announcements -->
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-white border-0">
+                        <h5 class="fw-bold text-success mb-0"><i class="uil uil-calendar-alt me-2"></i> Upcoming Events</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item px-0">🗓 Webinar — <strong>"Blockchain for Beginners"</strong> on
+                                <em>April 20, 2025</em></li>
+                            <li class="list-group-item px-0">💻 Workshop — <strong>"Smart Contracts Dev"</strong> on
+                                <em>April 25, 2025</em></li>
+                            <li class="list-group-item px-0">⚡ Hackathon — <strong>"Crypto Innovations"</strong> on <em>May
+                                    5, 2025</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-white border-0">
+                        <h5 class="fw-bold text-success mb-0"><i class="uil uil-bullhorn me-2"></i> Announcements</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item px-0">🚀 New course <strong>"Advanced Blockchain Dev"</strong> now
+                                available!</li>
+                            <li class="list-group-item px-0">📢 Submit <strong>"Crypto Security"</strong> assignments by
+                                <em>April 18, 2025</em>.</li>
+                            <li class="list-group-item px-0">🏅 Congrats <strong>Jane Smith</strong> for top score in
+                                Blockchain Basics!</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Top Performing Students -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="card shadow-lg p-4 hover-popup border-0" style="background: #ffffff;">
-                    <h5 class="text-success fw-bold"><i class="uil uil-trophy"></i> Top Performing Students</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Jane Smith</strong> - 98% in <strong>"Blockchain
-                                Basics"</strong></li>
-                        <li class="list-group-item"><strong>Michael Brown</strong> - 95% in <strong>"Crypto
-                                Security"</strong></li>
-                        <li class="list-group-item"><strong>John Doe</strong> - 93% in <strong>"Smart Contracts
-                                101"</strong></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Announcements -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="card shadow-lg p-4 hover-popup border-0" style="background: #f8f9fa;">
-                    <h5 class="text-success fw-bold"><i class="uil uil-bullhorn"></i> Announcements</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">New course <strong>"Advanced Blockchain Development"</strong> is now
-                            available!</li>
-                        <li class="list-group-item">Reminder: Submit assignments for <strong>"Crypto Security"</strong> by
-                            <em>April 18, 2025</em>.
-                        </li>
-                        <li class="list-group-item">Congratulations to <strong>Jane Smith</strong> for achieving the
-                            highest score in <strong>"Blockchain Basics"</strong>.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection

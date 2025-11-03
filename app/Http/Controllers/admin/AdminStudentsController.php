@@ -11,10 +11,9 @@ class AdminStudentsController extends Controller
     public function index()
     {
         $students = User::paginate(10);
-        return view('admin.students.index',compact("students"));
+
+        return view('admin.students.index', compact('students'));
     }
-
-
 
     public function show($id)
     {
@@ -33,29 +32,37 @@ class AdminStudentsController extends Controller
         // Render the view with the student object
         return view('admin.students.edit', compact('student'));
     }
+
     public function update(Request $request, $id)
     {
-        // Validate the request data
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $id,
-            // Add other validation rules as needed
+            'email' => 'required|email|max:255|unique:users,email,'.$id,
+            'phase_select' => 'nullable|string|max:255',
+            'custom_phase' => 'nullable|string|max:255',
         ]);
 
-        // Fetch the student
         $student = User::findOrFail($id);
 
-        // Update the student data
-        $student->name = $request->input('name');
-        $student->email = $request->input('email');
-        // Update other fields as necessary
+        // Determine final phase
+        $finalPhase = $validated['phase_select'] ?? null;
 
-        // Save the changes
-        $student->save();
+        if ($finalPhase === 'Custom' && ! empty($validated['custom_phase'])) {
+            $finalPhase = $validated['custom_phase'];
+        } elseif (empty($finalPhase) && ! empty($validated['custom_phase'])) {
+            $finalPhase = $validated['custom_phase'];
+        }
 
-        // Redirect back with a success message
+        // Update record
+        $student->update([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'phase' => $finalPhase,
+        ]);
+
         return redirect()->route('admin.students.index')->with('success', 'Student updated successfully.');
     }
+
     public function destroy($id)
     {
         // Fetch the student
@@ -67,17 +74,17 @@ class AdminStudentsController extends Controller
         // Redirect back with a success message
         return redirect()->route('admin.students.index')->with('error', 'Student deleted successfully.');
     }
-    
+
     public function search(Request $request)
     {
         $query = $request->input('search');
         $students = collect();  // Start with empty collection
         $message = null;
 
-        if (!empty($query)) {
+        if (! empty($query)) {
             $students = User::where(function ($q) use ($query) {
-                $q->where('name', 'like', '%' . $query . '%')
-                ->orWhere('email', 'like', '%' . $query . '%');
+                $q->where('name', 'like', '%'.$query.'%')
+                    ->orWhere('email', 'like', '%'.$query.'%');
             })->get();
 
             if ($students->isEmpty()) {
@@ -93,6 +100,4 @@ class AdminStudentsController extends Controller
             'message' => $message,
         ]);
     }
-
-
 }
