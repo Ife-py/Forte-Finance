@@ -6,6 +6,7 @@ use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\AdminAuthController;
 use App\Http\Controllers\Dashboard\StudentCoursesController;
+use App\Http\Controllers\Dashboard\StudentExamController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\AdminStudentsController;
 use App\Http\Controllers\admin\AdminCoursesController;
@@ -53,6 +54,12 @@ Route::middleware('auth')->group(function(){
         Route::controller(StudentCoursesController::class)->name('courses.')->group(function(){
             Route::get('/courses','index')->name('index');
         });
+        Route::controller(StudentExamController::class)->name('exams.')->group(function(){
+            Route::get('/exams','index')->name('index');
+            Route::get('/exams/{id}/start','start')->name('start');
+            Route::post('/exams/{id}/submit','submit')->name('submit');
+            Route::get('/exams/{id}/result','result')->name('result');
+        }); 
         Route::get('/students','students')->name('students');
     });
 });
