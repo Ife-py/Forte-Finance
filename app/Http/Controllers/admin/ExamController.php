@@ -33,6 +33,8 @@ class ExamController extends Controller
             'phase_type' => 'required|string|in:predefined,custom',
             'phase' => 'nullable|required_if:phase_type,predefined|string|in:Alpha,Sigma,Beta,Omega',
             'custom_phase' => 'nullable|required_if:phase_type,custom|string|max:255',
+            'start_time' => 'required|date|after_or_equal:now',
+            'end_time' => 'required|date|after:start_time',
         ]);
         
         $phase = $request->phase_type === 'custom' 
@@ -45,11 +47,46 @@ class ExamController extends Controller
             'description' => $validated['description'] ?? null,
             'duration' => $validated['duration'],
             'phase' => $phase,
+            'start_time' => $validated['start_time'],
+            'end_time' => $validated['end_time'],
         ]);
 
         return redirect()->route('admin.exams.index')->with('success', 'Exam created successfully!');
     }
 
+    public function edit(Exam $exam)
+    {
+        return view('admin.exams.edit', compact('exam'));
+    }
+
+    public function update(Request $request, Exam $exam)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'duration' => 'required|integer|min:1',
+            'phase_type' => 'required|string|in:predefined,custom',
+            'phase' => 'nullable|required_if:phase_type,predefined|string|in:Alpha,Sigma,Beta,Omega',
+            'custom_phase' => 'nullable|required_if:phase_type,custom|string|max:255',
+            'start_time' => 'required|date|after_or_equal:now',
+            'end_time' => 'required|date|after:start_time',
+        ]);
+        
+        $phase = $request->phase_type === 'custom' 
+        ? $request->custom_phase 
+        : $request->phase;
+
+        $exam->update([
+            'title' => $validated['title'],
+            'description' => $validated['description'] ?? null,
+            'duration' => $validated['duration'],
+            'phase' => $phase,
+            'start_time' => $validated['start_time'],
+            'end_time' => $validated['end_time'],
+        ]);
+
+        return redirect()->route('admin.exams.index')->with('success', 'Exam updated successfully!');
+    }
     // Show single exam with its questions
     public function show(Exam $exam)
     {

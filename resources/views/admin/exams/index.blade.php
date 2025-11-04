@@ -33,6 +33,10 @@
                                     <a href="{{ route('admin.exams.show', $exam) }}" class="btn btn-outline-success btn-sm">
                                         <i class="uil uil-eye"></i> View
                                     </a>
+                                    <a href="{{ route('admin.exams.edit', $exam) }}" class="btn btn-outline-primary btn-sm">
+                                        <i class="uil uil-edit-alt"></i> Edit
+                                    </a>
+
                                     <form action="{{ route('admin.exams.destroy', $exam->id) }}" method="POST"
                                         onsubmit="return confirm('Are you sure you want to delete this exam?')"
                                         class="d-inline">

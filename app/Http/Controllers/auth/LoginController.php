@@ -33,7 +33,7 @@ class LoginController extends Controller
             return redirect()->back()->with('error', 'Invalid Password');
         }
         return redirect()
-        ->route('dashboard') ->with('success', 'Login successful');
+        ->route('dashboard.index') ->with('success', 'Login successful');
     }
 
     public function index(){

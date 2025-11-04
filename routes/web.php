@@ -102,6 +102,8 @@ Route::controller(ExamController::class)->prefix('admin/exams')->group(function(
     Route::get('/','index')->name('admin.exams.index');
     Route::get('/create','create')->name('admin.exams.create');
     Route::post('/store','store')->name('admin.exams.store');
+    Route::get('/{exam}/edit','edit')->name('admin.exams.edit');
+    Route::put('/{exam}', 'update')->name('admin.exams.update');
     Route::get('/{exam}','show')->name('admin.exams.show');
     Route::post('exams/{exam}/questions', 'storeQuestion')->name('admin.exams.questions.store');
     Route::delete('/exams/{exam}/questions/{question}', 'deleteQuestion')->name('admin.exams.questions.delete');

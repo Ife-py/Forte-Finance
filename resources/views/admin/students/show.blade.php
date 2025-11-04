@@ -29,16 +29,6 @@
                                         class="text-secondary">Not assigned</span></p>
                             @endif
                         </div>
-                        @if (!empty($student->phase))
-                            <p class="mb-0 text-muted">
-                                <i class="uil uil-shield-check"></i> Phase:
-                                <span class="fw-semibold text-success">{{ ucfirst($student->phase) }}</span>
-                            </p>
-                        @else
-                            <p class="mb-0 text-muted"><i class="uil uil-shield-check"></i> Phase: <span
-                                    class="text-secondary">Not assigned</span></p>
-                        @endif
-
                     </div>
                 </div>
             </div>

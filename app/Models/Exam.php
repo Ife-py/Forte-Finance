@@ -12,4 +12,10 @@ class Exam extends Model
     {
         return $this->hasMany(Question::class);
     }
+    
+    protected $casts = [
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
+    ];
+
 }
