@@ -12,6 +12,7 @@
             $pastExams = $exams->filter(function ($exam) {
                 return now()->gt($exam->end_time);
             });
+
         @endphp
 
         {{-- ===== AVAILABLE EXAMS SECTION ===== --}}
@@ -53,7 +54,8 @@
                                         <i class="uil uil-clock"></i> Starts Soon
                                     </button>
                                 @elseif (now()->between($exam->start_time, $exam->end_time))
-                                    <a href="{{ route('dashboard.exams.start', $exam->id) }}" class="btn btn-success w-100">
+                                    <a href="{{ route('dashboard.exams.start', $exam->id) }}"
+                                        class="btn btn-success w-100">
                                         <i class="uil uil-play"></i> Start Exam
                                     </a>
                                 @elseif (now()->gt($exam->end_time))

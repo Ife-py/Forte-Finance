@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Answer;
 use App\Models\Exam;
+use App\Models\ExamAnswer;
 use App\Models\ExamAttempt;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,13 +23,7 @@ class StudentExamController extends Controller
     public function start($id)
     {
         $exam = Exam::with('questions.options')->findOrFail($id);
-        dd([
-            'now' => now(),
-            'start_time' => $exam->start_time,
-            'end_time' => $exam->end_time,
-            'gt_end' => now()->gt($exam->end_time),
-            'lt_start' => now()->lt($exam->start_time),
-        ]);
+
         // Prevent access if exam not started yet
         if (now()->lt($exam->start_time)) {
             return redirect()->route('dashboard.exams.index')
@@ -47,14 +41,33 @@ class StudentExamController extends Controller
             'exam_id' => $exam->id,
             'user_id' => Auth::id(),
         ]);
+        
+        if ($attempt && $attempt->is_completed) {
+            // Redirect to result if exam already completed
+            return redirect()->route('dashboard.exams.result', $attempt->id)
+                ->with('info', 'You have already completed this exam.');
+        }
+
+        // If no attempt exists, create one
+        if (! $attempt) {
+            $attempt = ExamAttempt::create([
+                'exam_id' => $exam->id,
+                'user_id' => auth()->id(),
+                'score' => 0,
+                'is_completed' => false,
+                'started_at' => now(),
+            ]);
+        }
 
         return view('Dashboard.exams.take', compact('exam', 'attempt'));
     }
 
     public function submit(Request $request, $id)
     {
-        $exam = Exam::with('questions')->findOrFail($id);
-        $attempt = ExamAttempt::where('exam_id', $id)->where('user_id', Auth::id())->first();
+        $exam = Exam::with('questions.options')->findOrFail($id);
+        $attempt = ExamAttempt::where('exam_id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
 
         $score = 0;
 
@@ -64,12 +77,16 @@ class StudentExamController extends Controller
                 continue;
             }
 
-            $isCorrect = $question->options()->where('id', $selectedOption)->where('is_correct', true)->exists();
+            $isCorrect = $question->options()
+                ->where('id', $selectedOption)
+                ->where('is_correct', true)
+                ->exists();
 
-            Answer::create([
+            ExamAnswer::create([
                 'exam_attempt_id' => $attempt->id,
                 'question_id' => $question->id,
                 'option_id' => $selectedOption,
+                'is_correct' => $isCorrect,
             ]);
 
             if ($isCorrect) {

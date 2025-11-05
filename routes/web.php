@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\AdminAuthController;
 use App\Http\Controllers\Dashboard\StudentCoursesController;
 use App\Http\Controllers\Dashboard\StudentExamController;
+use App\Http\Controllers\Dashboard\CertificateController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\AdminStudentsController;
 use App\Http\Controllers\admin\AdminCoursesController;
@@ -53,6 +54,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/','index')->name('index');
         Route::controller(StudentCoursesController::class)->name('courses.')->group(function(){
             Route::get('/courses','index')->name('index');
+            Route::get('/courses/{id}','show')->name('show');
+            Route::get('/courses/{id}/download','download')->name('download');
         });
         Route::controller(StudentExamController::class)->name('exams.')->group(function(){
             Route::get('/exams','index')->name('index');
@@ -60,6 +63,13 @@ Route::middleware('auth')->group(function(){
             Route::post('/exams/{id}/submit','submit')->name('submit');
             Route::get('/exams/{id}/result','result')->name('result');
         }); 
+
+        Route::controller(CertificateController::class)->name('certificates.')->group(function(){
+            Route::get('/certificates','index')->name('index');
+            Route::get('/certificates/{id}/download','download')->name('download');
+            Route::get('/certificates/{id}/view','view')->name('view');
+        });
+
         Route::get('/students','students')->name('students');
     });
 });

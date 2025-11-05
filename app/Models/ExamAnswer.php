@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Answer extends Model
+class ExamAnswer extends Model
 {
     use HasFactory;
-    
-    protected $table = 'exam_answers';
-    protected $fillable = ['exam_attempt_id', 'question_id', 'option_id','is_correct'];
+
+    protected $fillable = [
+        'exam_attempt_id',
+        'question_id',
+        'option_id',
+        'is_correct',
+    ];
 
     public function attempt()
     {

@@ -236,7 +236,9 @@
                     <i class="uil uil-edit-alt"></i> Exams
                 </a>
             </li>
-            <li><a href="#" class="nav-link"><i class="uil uil-award"></i> Certificates</a></li>
+            <li class="nav-item"> 
+                <a href="{{ route('dashboard.certificates.index') }}" class="nav-link"><i class="uil uil-award"></i>
+                    Certificates</a></li>
             <li><a href="#" class="nav-link"><i class="uil uil-setting"></i> Settings</a></li>
         </ul>
 
