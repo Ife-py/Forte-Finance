@@ -239,7 +239,9 @@
             <li class="nav-item"> 
                 <a href="{{ route('dashboard.certificates.index') }}" class="nav-link"><i class="uil uil-award"></i>
                     Certificates</a></li>
-            <li><a href="#" class="nav-link"><i class="uil uil-setting"></i> Settings</a></li>
+            <li class="nav-item">
+                <a href="{{ route('dashboard.settings.index') }}" class="nav-link"><i class="uil uil-setting">
+                    </i> Settings</a></li>
         </ul>
 
         <div class="sidebar-footer">

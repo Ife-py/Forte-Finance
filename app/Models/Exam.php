@@ -18,6 +18,11 @@ class Exam extends Model
         return $this->hasMany(ExamAttempt::class);
     }
     
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'exam_user');
+    }
+
     protected $casts = [
         'start_time' => 'datetime',
         'end_time' => 'datetime',

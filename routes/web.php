@@ -8,12 +8,14 @@ use App\Http\Controllers\Dashboard\AdminAuthController;
 use App\Http\Controllers\Dashboard\StudentCoursesController;
 use App\Http\Controllers\Dashboard\StudentExamController;
 use App\Http\Controllers\Dashboard\CertificateController;
+use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\AdminStudentsController;
 use App\Http\Controllers\admin\AdminCoursesController;
 use App\Http\Controllers\admin\AdminSettingsController;
 use App\Http\Controllers\admin\AdminCertificateController;
 use App\Http\Controllers\admin\ExamController;
+use App\Http\Controllers\admin\AnnouncementController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -68,6 +70,14 @@ Route::middleware('auth')->group(function(){
             Route::get('/certificates','index')->name('index');
             Route::get('/certificates/{id}/download','download')->name('download');
             Route::get('/certificates/{id}/view','view')->name('view');
+        });
+
+        Route::controller(SettingsController::class)->name('settings.')->group(function(){
+            Route::get('/settings','index')->name('index');
+            Route::get('/settings/profile','profile')->name('profile');
+            Route::post('/settings/profile-update','updateProfile')->name('profile.update');
+            Route::get('/settings/password','password')->name('password');
+            Route::post('/settings/password-update','updatePassword')->name('password.update');
         });
 
         Route::get('/students','students')->name('students');
@@ -127,6 +137,16 @@ Route::controller(ExamController::class)->prefix('admin/exams')->group(function(
     Route::delete('/exams/{exam}','destroy')->name('admin.exams.destroy');
 
 
+});
+
+Route::controller(AnnouncementController::class)->prefix('admin/announcements')->group(function(){
+    Route::get('/','index')->name('admin.announcements.index');
+    Route::get('/create','create')->name('admin.announcements.create');
+    Route::post('/store','store')->name('admin.announcements.store');
+    Route::get('/{id}','show')->name('admin.announcements.show');
+    Route::get('/{id}/edit','edit')->name('admin.announcements.edit');
+    Route::put('/{id}/update','update')->name('admin.announcements.update');
+    Route::delete('/{id}/destroy','destroy')->name('admin.announcements.destroy');
 });
 
 Route::controller(AdminAuthController::class)->prefix('dashboard')->group(function(){

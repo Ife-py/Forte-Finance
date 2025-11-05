@@ -18,13 +18,13 @@ class CertificateController extends Controller
 
     public function download($id)
     {
-        $certificate = Certificate::where('user_id', Auth::id())->findOrFail($id);
-        return Storage::disk('public')->download($certificate->certificate_file);
+        $certificate = Certificate::where('student_id', Auth::id())->findOrFail($id);
+        return Storage::disk('public')->download($certificate->certificate_image);
     }
 
     public function view($id)
     {
-        $certificate = Certificate::where('user_id', Auth::id())->findOrFail($id);
-        return response()->file(storage_path('app/public/' . $certificate->certificate_file));
+        $certificate = Certificate::where('student_id', Auth::id())->findOrFail($id);
+        return response()->file(storage_path('app/public/' . $certificate->certificate_image));
     }
 }

@@ -45,7 +45,7 @@
                     </div>
 
                     <!-- Download Button -->
-                    @if ($course->file_path || $course->document_path || $course->video_path || $course->audio_path)
+                    @if ($course->image_path || $course->document_path || $course->video_path || $course->audio_path)
                         <div class="mt-4">
                             <a href="{{ route('dashboard.courses.download', $course->id) }}"
                                 class="btn btn-success rounded-pill px-4 shadow-sm">

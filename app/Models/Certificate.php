@@ -24,4 +24,6 @@ class Certificate extends Model
     {
         return $this->belongsTo(courses::class, 'course_id');
     }
+
+    
 }
