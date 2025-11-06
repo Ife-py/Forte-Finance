@@ -223,28 +223,152 @@
 
     @yield('content')
 
-    <!-- Newsletter Subscription -->
-    <section class="container text-center py-5">
-        <h2 class="text-success">Subscribe to Our Newsletter</h2>
-        <p>Stay updated with the latest trends in cryptocurrency and blockchain.</p>
-        <form class="d-flex justify-content-center">
-            <input type="email" class="form-control w-50" placeholder="Enter your email" required>
-            <button class="btn btn-green ms-2">Subscribe</button>
-        </form>
+    <!-- Newsletter + Footer Combined -->
+    <section class="footer-blend text-white pt-5">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-3">Stay Connected</h2>
+            <p class="mb-4">Subscribe to our newsletter and never miss updates on blockchain and crypto innovations.
+            </p>
+            <form class="newsletter-form mx-auto mb-5">
+                <div class="input-group shadow-sm rounded-pill overflow-hidden">
+                    <input type="email" class="form-control border-0 ps-4 py-3" placeholder="Enter your email address"
+                        required>
+                    <button class="btn btn-subscribe px-4 fw-semibold" type="submit">Subscribe</button>
+                </div>
+            </form>
+
+            <div class="row gy-4 text-start text-md-start">
+                <!-- About -->
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="fw-bold mb-3">About ForteFinance</h5>
+                    <p class="small opacity-75">
+                        ForteFinance empowers individuals and businesses through blockchain and crypto education,
+                        bridging the gap between learning and real-world application.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <ul class="list-unstyled small">
+                        <li><a href="{{ route('index') }}" class="footer-link">Home</a></li>
+                        <li><a href="{{ route('about-us') }}" class="footer-link">About Us</a></li>
+                        <li><a href="{{ route('contact-us') }}" class="footer-link">Contact Us</a></li>
+                        <li><a href="{{ route('login') }}" class="footer-link">Login</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Socials -->
+                <div class="col-lg-4 col-md-12">
+                    <h5 class="fw-bold mb-3">Get in Touch</h5>
+                    <p class="small mb-1"><i class="uil uil-envelope-alt me-2"></i> support@fortefinance.com</p>
+                    <p class="small mb-3"><i class="uil uil-phone me-2"></i> +123 456 7890</p>
+                    <div class="social-icons mt-2">
+                        <a href="#"><i class="uil uil-facebook-f"></i></a>
+                        <a href="#"><i class="uil uil-twitter"></i></a>
+                        <a href="#"><i class="uil uil-instagram"></i></a>
+                        <a href="#"><i class="uil uil-linkedin"></i></a>
+                        <a href="#"><i class="uil uil-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt-5 mb-3 opacity-25">
+            <p class="small opacity-75 mb-0">&copy; {{ date('Y') }} ForteFinance. All Rights Reserved.</p>
+        </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2024 {{ $name }}. All rights reserved.</p>
-        <p>Contact us: support@forteFinance | +123 456 7890</p>
-        <div class="social-icons mt-3">
-            <a href="https://facebook.com" target="_blank"><i class="uil uil-facebook-f"></i></a>
-            <a href="https://twitter.com" target="_blank"><i class="uil uil-twitter"></i></a>
-            <a href="https://instagram.com" target="_blank"><i class="uil uil-instagram"></i></a>
-            <a href="https://linkedin.com" target="_blank"><i class="uil uil-linkedin"></i></a>
-            <a href="https://whatsapp.com" target="_blank"><i class="uil uil-whatsapp"></i></a>
-        </div>
-    </footer>
+    <style>
+        /* Combined Newsletter + Footer Styling */
+        .footer-blend {
+            background: linear-gradient(180deg, #1fb97e 0%, #0f3f25 90%);
+            color: #fff;
+            padding-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            max-width: 550px;
+        }
+
+        .newsletter-form .form-control {
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .newsletter-form .btn-subscribe {
+            background-color: #fff;
+            color: #198754;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form .btn-subscribe:hover {
+            background-color: #e9f7ef;
+            color: #157347;
+            transform: scale(1.05);
+        }
+
+        .footer-link {
+            color: #d4edda;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 6px;
+            transition: color 0.3s, transform 0.2s;
+        }
+
+        .footer-link:hover {
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+
+        .social-icons a {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #a8f5c4;
+            transform: scale(1.15);
+        }
+
+        hr {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 767px) {
+            .footer-blend {
+                text-align: center;
+                padding-top: 3rem;
+                padding-bottom: 1.5rem;
+            }
+
+            .newsletter-form .input-group {
+                flex-direction: column;
+                border-radius: 1rem;
+            }
+
+            .newsletter-form .form-control {
+                border-radius: 1rem 1rem 0 0;
+            }
+
+            .newsletter-form .btn-subscribe {
+                width: 100%;
+                border-radius: 0 0 1rem 1rem;
+                margin-top: 8px;
+            }
+
+            .social-icons {
+                margin-top: 10px;
+            }
+        }
+    </style>
+
+
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
